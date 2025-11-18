@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Minha IA</title>
+</head>
+<body>
+  <h1>Chat com Minha IA</h1>
+
+  <textarea id="input" rows="4" cols="40" placeholder="Escreva aqui..."></textarea><br>
+  <button onclick="sendMessage()">Enviar</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    const API_KEY = "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";
+
+    async function sendMessage() {
+      const text = document.getElementById("input").value;
+
+      const r = await fetch("https://api.openai.com/v1/responses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + API_KEY
+        },
+        body: JSON.stringify({
+          model: "gpt-4o-mini", 
+          input: text
+        })
+      });
+
+      const data = await r.json();
+      document.getElementById("output").innerText = data.output_text;
+    }
+  </script>
+</body>
+</html>
